@@ -1,0 +1,312 @@
+/* デザイン定数の定義 */
+:root { 
+    --bg-color: #000000;  /* 背景色：完全な黒 */
+    --card-bg: #111111;   /* コンテナ色：深いグレー */
+    --accent: #00ff00;    /* 強調色：鮮やかな緑 */
+    --text: #ffffff;      /* 文字色：白 */
+    --gold: #f1c40f;      /* お祝い/フレーム数：金 */
+}
+.secret-name {
+    /* Dancing Script の代わりに、システムに入っている筆記体フォントを優先します */
+    font-family: 'Dancing Script', 'Brush Script MT', 'cursive';
+    font-size: 8vh;
+    color: var(--gold);
+    margin: 2vh 0;
+}
+/* 全体の基本設定 */
+* { 
+    box-sizing: border-box; 
+    touch-action: manipulation; 
+}
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-color);
+    color: var(--text);
+    /* メインフォントの設定: 
+       'Segoe UI' (Windows用モダン), 
+       'San Francisco' (Apple用), 
+       Helvetica (汎用)
+    */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* レイアウト構造 */
+.main-container { 
+    display: flex; 
+    flex-direction: column; 
+    height: 100vh; 
+    width: 100vw; 
+    padding: 1vh; 
+}
+.game-display { 
+    flex: 70; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: stretch; 
+    gap: 1vh; 
+    height: 60vh; 
+}
+
+/* プレイヤーサイドのデザイン */
+.player-side { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: stretch; 
+    justify-content: space-between; 
+    border-radius: 2vh; 
+    border: 0.4vh solid rgba(255,255,255,0.1); 
+    background: rgba(255, 255, 255, 0.02); 
+    padding: 2vh 0; 
+    transition: all 0.3s ease; 
+    position: relative; 
+}
+.player-side.active { 
+    background: rgba(0, 255, 0, 0.12); 
+    border-color: var(--accent); 
+    box-shadow: 0 0 20px rgba(0,255,0,0.1); 
+}
+
+/* テキストとスコア */
+.name-row { 
+    position: relative; 
+    width: 100%; 
+    height: 10vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+.name { 
+    font-size: 7vh; 
+    font-weight: 900; 
+    white-space: nowrap; 
+    cursor: pointer; 
+    color: rgba(255,255,255,0.9); 
+    z-index: 10; 
+}
+.frame-count { 
+    font-size: 9vh; 
+    color: var(--gold); 
+    font-weight: 900; 
+    position: absolute; 
+    top: 0; 
+    z-index: 5; 
+}
+#p1-frames { 
+    right: 2vw; 
+} 
+#p2-frames { 
+    left: 2vw; 
+} 
+.score { 
+    font-size: 30vh; 
+    font-weight: 900; 
+    line-height: 0.8; 
+    font-variant-numeric: tabular-nums; 
+    color: #fff; 
+    flex-grow: 1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+.foul-label { 
+    font-size: 2vh; 
+    color: #ff6b6b; 
+    font-weight: bold; 
+    background: rgba(255, 107, 107, 0.1); 
+    width: 100%; 
+    text-align: center; 
+    padding: 0.5vh 0; 
+}
+
+/* 中央UIパネル */
+.center-info { 
+    display: flex; 
+    flex-direction: column;
+     justify-content: flex-start; 
+     align-items: center; 
+     min-width: 14vw; 
+     padding-top: 2vh; 
+     gap: 1vh; 
+    }
+.reset-btn-ui { 
+    font-size:1.4vh; 
+    padding:1.2vh 1.8vh; 
+    background:#222; 
+    border:1px solid #444; 
+    color:#aaa; 
+    cursor:pointer; 
+    border-radius:0.5vh; 
+}
+#timer {
+    font-size: 2.2vh; 
+    font-family: monospace; 
+    color: #666; 
+    margin-top: 1vh; 
+}
+#vs-text { 
+    font-size: 6vh; 
+    opacity: 0.4;
+     margin-top: 4vh; 
+     margin-bottom: 2vh; 
+     font-weight: 900; 
+     font-style: italic; 
+    }
+.diff-box { 
+    padding:1vh; 
+    background:rgba(255,255,255,0.08); 
+    border-radius:1.5vh; 
+    text-align:center; 
+    min-width:11vw; 
+}
+.diff-label { 
+    font-size:1.4vh; 
+    color:#888; 
+}
+
+
+
+#score-diff { 
+    font-size: 7.5vh; 
+    font-weight: bold; 
+    color: #dcdcdc; 
+    line-height: 1; 
+}
+
+
+/* ボールのグラフィックエンジン */
+.ball-sphere { 
+    border-radius: 50%; position: relative; border: none; cursor: pointer; 
+    display: flex; align-items: center; justify-content: center; 
+    transition: transform 0.05s ease; overflow: hidden;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.6), inset 0 -4px 8px rgba(0,0,0,0.5);
+}
+.ball-sphere:active { 
+    transform: scale(0.92); 
+}
+.ball-sphere::after {
+    content: ""; 
+    position: absolute; 
+    top: 5%; 
+    left: 15%; 
+    width: 45%; 
+    height: 30%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
+    border-radius: 50% 50% 60% 60%; 
+    pointer-events: none;
+}
+.ball-control { 
+    width: 8.5vh; 
+    height: 8.5vh; 
+}
+.ball-control span { 
+    font-size: 3.5vh; 
+    font-weight: 900; 
+    z-index: 5; 
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); 
+}
+.ball-small { 
+    width: 3.5vh; 
+    height: 3.5vh; 
+    margin: 2px; 
+}
+
+/* ボールの色の定義 */
+.color-1 { background: radial-gradient(circle at 30% 30%, #ff4d4d, #b30000 50%, #4d0000 100%); }
+.color-2 { background: radial-gradient(circle at 30% 30%, #ffff80, #e6b800 50%, #4d3d00 100%); }
+.color-3 { background: radial-gradient(circle at 30% 30%, #47d147, #008000 50%, #003300 100%); }
+.color-4 { background: radial-gradient(circle at 30% 30%, #a67c52, #593e25 50%, #261a0f 100%); }
+.color-5 { background: radial-gradient(circle at 30% 30%, #4d4dff, #0000cc 50%, #00004d 100%); }
+.color-6 { background: radial-gradient(circle at 30% 30%, #ff80bf, #e60073 50%, #4d0026 100%); }
+.color-7 { background: radial-gradient(circle at 30% 30%, #555, #111 50%, #979797 100%); }
+
+/* 操作系ボタン */
+.controls { 
+    flex: 20; 
+    background: var(--card-bg); 
+    border-radius: 2vh; 
+    padding: 1.5vh; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1vh; 
+}
+.ball-row { 
+    display:flex; 
+    justify-content:center; 
+    gap:2vw; 
+    padding:1vh 0; 
+}
+.foul-row { 
+    display:grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 1vh; 
+}
+.system-row { 
+    display:grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 1vh; 
+}
+.btn-system { 
+    font-size:1.8vh; 
+    background:#222; 
+    border-radius:1vh; 
+    border:none; 
+    cursor:pointer; 
+    font-weight:bold; 
+    padding:1vh; 
+}
+.btn-foul { color:#ff6b6b; }
+.modal-btn { 
+    width: 100%; 
+    padding: 1.8vh; 
+    border-radius: 1vh; 
+    font-size: 2.2vh; 
+    font-weight: bold; 
+    cursor: pointer;
+    border: none; 
+}
+.wide { grid-column: span 3; }
+.ad-placeholder {
+    width: 90%;
+    height: 80px; /* 広告の標準的な高さ */
+    margin: 10px auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px dashed #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    border-radius: 8px;
+}
+
+/* ボタンカラーバリエーション */
+.btn-green { background: var(--accent); color: black; }
+.btn-red { background: #c0392b; color: white; }
+.btn-blue { background: #3e515e; color: white; }
+.btn-dark { background: #333; color: white; }
+.btn-gray { background: #444; color: white; }
+.btn-purple { background: #8e44ad; color: white; }
+
+/* モーダル基本スタイル */
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
+.modal-content { background: #1a1a1a; padding: 4vh; border-radius: 2vh; width: 85%; max-width: 500px; text-align: center; border: 1px solid #333; }
+.flex-row { display:flex; gap:1vh; margin-top:2vh; }
+.player-list-scroll { max-height:40vh; overflow-y:auto; margin:2vh 0; background:#000; }
+.name-text-input { width:100%; background:#000; color:#fff; padding:2vh; font-size:3vh; text-align:center; border: 1px solid #444; }
+
+/* ブレイク（履歴）表示 */
+#break-container { height: 11vh; text-align: center; }
+#break-area { font-size: 4.5vh; color: var(--gold); font-weight: bold; height: 5vh; }
+#break-balls { display: flex; justify-content: center; gap: 4px; height: 4.5vh; flex-wrap: wrap; }
+
+/* お祝い演出 */
+#celebration-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 999; display: flex; align-items: center; justify-content: center; transition: background 0.5s; }
+.celebration-text { font-size: 11vh; font-weight: 900; color: var(--gold); transform: scale(0); opacity: 0; transition: all 0.5s; }
+.celebration-text.show { transform: scale(1); opacity: 1; }
+.secret-box { background:linear-gradient(135deg, #1a1a1a 0%, #000 100%); border: 2px solid var(--gold); }
+.secret-name { font-family: 'Dancing Script', cursive; font-size: 8vh; color: var(--gold); margin: 2vh 0; }
+.msg-large { font-size:4vh; }
+.txt-gray { color:#888; }
