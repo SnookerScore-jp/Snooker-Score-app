@@ -205,7 +205,7 @@ body, html {
     height: 8.5vh; 
 }
 .ball-control span { 
-    font-size: 3.5vh; 
+    font-size: 3.0vh; 
     font-weight: 900; 
     z-index: 5; 
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
@@ -226,6 +226,95 @@ body, html {
 .color-5 { background: radial-gradient(circle at 30% 30%, #4d4dff, #0000cc 50%, #00004d 100%); }
 .color-6 { background: radial-gradient(circle at 30% 30%, #ff80bf, #e60073 50%, #4d0026 100%); }
 .color-7 { background: radial-gradient(circle at 30% 30%, #555, #111 50%, #979797 100%); }
+/* 歯車ボタンの土台 */
+.settings-gear-btn {
+    width: 8vh;
+    height: 8vh;
+    background: #222;
+    border: 2px solid #444;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.settings-gear-btn:hover { border-color: var(--gold); }
+.settings-gear-btn:hover .gear-icon { transform: rotate(45deg); }
+
+/* ファウルボタン専用スタイル */
+.foul-ball4 {
+    background: radial-gradient(circle at 30% 30%, #6b6b6b, #111) !important; /* 渋いメタル/マットな黒 */
+    border: 2.5px solid #e74c3c; /* 警告を意味する赤の細いフチ */
+    box-shadow: 0 0 20px rgba(245, 28, 3, 0.762); /* ほんのり赤く光らせる */
+    color: #ffffff !important; /* 文字も赤系に */
+    font-size: 2.5vh !important; /* 通常のボールより少し小さく */
+}
+.foul-ball5 {
+    background: radial-gradient(circle at 30% 30%, #6b6b6b, #111) !important; /* 渋いメタル/マットな黒 */
+    border: 2.5px solid #3c3fe7; /* 警告を意味する赤の細いフチ */
+    box-shadow: 0 0 20px rgba(3, 19, 245, 0.762); /* ほんのり赤く光らせる */
+    color: #ffffff !important; /* 文字も赤系に */
+    font-size: 2.5vh !important; /* 通常のボールより少し小さく */
+}
+.foul-ball6 {
+    background: radial-gradient(circle at 30% 30%, #6b6b6b, #111) !important; /* 渋いメタル/マットな黒 */
+    border: 2.5px solid #e73ca3; /* 警告を意味する赤の細いフチ */
+    box-shadow: 0 0 20px rgba(245, 3, 156, 0.762); /* ほんのり赤く光らせる */
+    color: #ffffff !important; /* 文字も赤系に */
+    font-size: 2.5vh !important; /* 通常のボールより少し小さく */
+}
+.foul-ball7 {
+    background: radial-gradient(circle at 30% 30%, #6b6b6b, #111) !important; /* 渋いメタル/マットな黒 */
+    border: 2.5px solid #636363; /* 警告を意味する赤の細いフチ */
+    box-shadow: 0 0 20px rgba(183, 183, 183, 0.659); /* ほんのり赤く光らせる */
+    color: #ffffff !important; /* 文字も赤系に */
+    font-size: 2.5vh !important; /* 通常のボールより少し小さく */
+}
+
+
+/* CSSで作る歯車アイコン */
+.gear-icon {
+    position: relative;
+    width: 3vh;
+    height: 3vh;
+    background: #888;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+.gear-icon::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1vh; height: 1vh;
+    background: #222; /* 穴の部分 */
+    border-radius: 50%;
+}
+/* 歯の部分 */
+.gear-icon::after {
+    content: "";
+    position: absolute;
+    inset: -0.8vh;
+    border-radius: 0.3vh;
+    border: 0.8vh dotted #888;
+}
+
+/* ヘルプモーダル専用スタイル */
+.help-box { max-width: 600px; width: 90%; max-height: 85vh; }
+.help-scroll-area { overflow-y: auto; text-align: left; padding: 10px; }
+.help-section { margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+.help-section h3 { color: var(--gold); font-size: 2.2vh; margin-bottom: 10px; }
+.benefit-tag { background: #e67e22; color: #fff; display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 1.2vh; margin-bottom: 10px; }
+.install-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.install-card { background: #000; padding: 10px; border-radius: 5px; font-size: 1.3vh; }
+.os-label { color: var(--gold); font-weight: bold; display: block; }
+.download-link { 
+    display: inline-block; background: #333; color: #fff; padding: 10px 15px; 
+    text-decoration: none; border-radius: 5px; margin-top: 10px; transition: 0.2s;
+}
+.download-link:hover { background: #444; border: 1px solid var(--gold); }
+.inline-icon { height: 1.8vh; vertical-align: middle; }
 
 /* 操作系ボタン */
 .controls { 
@@ -298,13 +387,14 @@ body, html {
 .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
 .modal-content { background: #1a1a1a; padding: 4vh; border-radius: 2vh; width: 85%; max-width: 500px; text-align: center; border: 1px solid #333; }
 .flex-row { display:flex; gap:1vh; margin-top:2vh; }
+.flex-column{display:flex; flex-direction:column; gap:1vh; margin-top:2vh;}
 .player-list-scroll { max-height:40vh; overflow-y:auto; margin:2vh 0; background:#000; }
 .name-text-input { width:100%; background:#000; color:#fff; padding:2vh; font-size:3vh; text-align:center; border: 1px solid #444; }
 
 /* ブレイク（履歴）表示 */
 #break-container { height: 11vh; text-align: center; }
 #break-area { font-size: 4.5vh; color: var(--gold); font-weight: bold; height: 5vh; }
-#break-balls { display: flex; justify-content: center; gap: 4px; height: 4.5vh; flex-wrap: wrap; }
+#break-balls { display: flex; justify-content: center; gap: 2px; height: 4.5vh; flex-wrap: wrap; }
 
 /* お祝い演出 */
 #celebration-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 999; display: flex; align-items: center; justify-content: center; transition: background 0.5s; }

@@ -273,6 +273,11 @@ function submitManualName() {
     closeModal('manual-input-modal'); 
 }
 
+function openHelpModal() {
+    document.getElementById('help-modal').style.display = 'flex';
+}
+
+
 /**
  * プレイヤーリスト（CSV読み込み）の描画
  */
@@ -337,11 +342,11 @@ function triggerCelebration(msg, level) {
  */
 window.onkeydown = (e) => { 
     const key = e.key.toLowerCase(); 
-    if (key === 'j') { 
+    /*if (key === 'j') { 
         if (document.getElementById('secret-modal').style.display !== 'flex') 
             document.getElementById('secret-modal').style.display = 'flex'; 
         return; 
-    }
+    }*/
     if (key >= '1' && key <= '7') addScore(parseInt(key)); 
     if (key === 'enter') handleSwitch(); 
     if (key === 'backspace') handleUndo(); 
