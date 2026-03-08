@@ -263,6 +263,11 @@ body, html {
     box-shadow: 0 0 20px rgba(245, 3, 156, 0.762); /* ほんのり赤く光らせる */
     color: #ffffff !important; /* 文字も赤系に */
     font-size: 2.5vh !important; /* 通常のボールより少し小さく */
+    /* 改行防止のための重要設定 */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important; /* はみ出しをカット */
 }
 .foul-ball7 {
     background: radial-gradient(circle at 30% 30%, #6b6b6b, #111) !important; /* 渋いメタル/マットな黒 */
