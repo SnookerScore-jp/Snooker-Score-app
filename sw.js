@@ -1,4 +1,4 @@
-const CACHE_NAME = 'snooker-v4'; 
+const CACHE_NAME = 'snooker-v3'; // ここを v2 に上げる
 const ASSETS = [
   'index.html',
   'style.css',
