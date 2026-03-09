@@ -1,11 +1,13 @@
-const CACHE_NAME = 'snooker-V6';
+const CACHE_NAME = 'snooker-v3'; // ここを v2 に上げる
 const ASSETS = [
   'index.html',
   'style.css',
   'script.js',
   'confetti.js',
   'manifest.json',
-  'icon.png'
+  'icon.png',
+  'Player_Name_List.csv',
+  'Snooker_app_manual_.pdf'
 ];
 
 // インストール時にキャッシュを作成
