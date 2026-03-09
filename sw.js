@@ -1,4 +1,4 @@
-const CACHE_NAME = 'snooker-V5';
+const CACHE_NAME = 'snooker-V6';
 const ASSETS = [
   'index.html',
   'style.css',
