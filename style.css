@@ -20,6 +20,7 @@
 }
 body, html {
     height: 100%;
+    height: 100dvh; /* iOS Safari用の動的100vh */
     margin: 0;
     padding: 0;
     background: var(--bg-color);
@@ -38,16 +39,18 @@ body, html {
     display: flex; 
     flex-direction: column; 
     height: 100vh; 
+    height: 100dvh; /* iPhoneのツールバー変動に対応 */
     width: 100vw; 
-    padding: 1vh; 
+    padding: max(0.5vh, env(safe-area-inset-top)) max(1vw, env(safe-area-inset-right)) max(0.5vh, env(safe-area-inset-bottom)) max(1vw, env(safe-area-inset-left)); 
+    box-sizing: border-box; 
 }
 .game-display { 
-    flex: 70; 
+    flex: 1; /* 高さを柔軟に伸縮させる */
+    min-height: 0; /* Flexboxでの溢れ防止 */
     display: flex; 
     justify-content: space-between; 
     align-items: stretch; 
     gap: 1vh; 
-    height: 60vh; 
 }
 
 /* プレイヤーサイドのデザイン */
@@ -212,9 +215,10 @@ body, html {
     border-radius: 50% 50% 60% 60%; 
     pointer-events: none;
 }
+/* ボールボタンのサイズをやや小さめに調整して収める */
 .ball-control { 
-    width: 8.5vh; 
-    height: 8.5vh; 
+    width: 7.5vh; 
+    height: 7.5vh; 
 }
 .ball-control span { 
     font-size: 2.7vh; 
@@ -344,21 +348,24 @@ body, html {
 .inline-icon { height: 1.8vh; vertical-align: middle; }
 
 /* 操作系ボタン */
+/* 操作系ボタンエリア */
 .controls { 
-    flex: 20; 
+    flex: shrink-0; /* 下部操作領域は潰れすぎないように保持 */
     background: var(--card-bg); 
-    border-radius: 2vh; 
-    padding: 1.5vh; 
+    border-radius: 1.5vh; 
+    padding: 1vh; 
     display: flex; 
     flex-direction: column; 
-    gap: 1vh; 
+    gap: 0.5vh; 
 }
+
 .ball-row { 
-    display:flex; 
-    justify-content:center; 
-    gap:2vw; 
-    padding:1vh 0; 
+    display: flex; 
+    justify-content: center; 
+    gap: 1.5vw; 
+    padding: 0.5vh 0; 
 }
+
 .foul-row { 
     display: flex !important;
     justify-content: center;
@@ -368,9 +375,9 @@ body, html {
     width: 100%;
 }
 .system-row { 
-    display:grid; 
+    display: grid; 
     grid-template-columns: repeat(3, 1fr); 
-    gap: 1vh; 
+    gap: 0.8vh; 
 }
 .btn-system { 
     font-size:1.8vh; 
@@ -385,9 +392,9 @@ body, html {
 .btn-foul { color:#ff6b6b; }
 .modal-btn { 
     width: 100%; 
-    padding: 1.8vh; 
+    padding: 1.2vh; /* 横画面用に縦幅を少しコンパクト化 */
     border-radius: 1vh; 
-    font-size: 2.2vh; 
+    font-size: 1.8vh; 
     font-weight: bold; 
     cursor: pointer;
     border: none; 
@@ -453,9 +460,27 @@ body, html {
 .name-text-input { width:100%; background:#000; color:#fff; padding:2vh; font-size:3vh; text-align:center; border: 1px solid #444; }
 
 /* ブレイク（履歴）表示 */
-#break-container { height: 11vh; text-align: center; }
-#break-area { font-size: 4.5vh; color: var(--gold); font-weight: bold; height: 5vh; }
-#break-balls { display: flex; justify-content: center; gap: 2px; height: 4.5vh; flex-wrap: wrap; }
+#break-container { 
+    height: auto; 
+    min-height: 5vh; 
+    max-height: 8vh;
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#break-area { 
+    font-size: 3.5vh; /* 少し小さく調整 */
+    color: var(--gold); 
+    font-weight: bold; 
+    line-height: 1;
+}
+#break-balls { 
+    display: flex; 
+    justify-content: center; 
+    gap: 2px; 
+    flex-wrap: wrap; 
+}
 
 /* お祝い演出 */
 #celebration-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 999; display: flex; align-items: center; justify-content: center; transition: background 0.5s; }
