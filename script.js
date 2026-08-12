@@ -19,6 +19,7 @@ let pendingWinnerIdx = -1;     // 勝利確定待ちのプレイヤー
 let milestonesReached = { 50: false, 100: false, 147: false }; // お祝いフラグ
 const ballNames = ["", "RED", "YELLOW", "GREEN", "BROWN", "BLUE", "PINK", "BLACK"];
 let wakeLock = null;           // 画面スリープ防止用
+let lastDisplayedScores = [0, 0];
 
 /**
  * 画面スリープ防止をリクエスト
@@ -33,6 +34,36 @@ const requestWakeLock = async () => {
  * 画面の数値を最新の状態に更新する
  */
 function updateDisplay() {
+    // プレイヤー1の更新処理
+    const diff0 = scores[0] - lastDisplayedScores[0]; // 増えた点数を計算
+    const scoreElement0 = document.getElementById("p1-score");
+
+    if (diff0 !== 0) {
+        if (Math.abs(diff0) === 1) {
+            // ★1点（またはUndoでの-1点）のときはアニメーションなしで即更新
+            scoreElement0.innerText = scores[0];
+        } else {
+            // 2点以上の差があるときだけアニメーション（400ms）
+            animateValue("p1-score", lastDisplayedScores[0], scores[0], 400);
+        }
+        lastDisplayedScores[0] = scores[0]; // 状態を同期
+    }
+
+    // プレイヤー2の更新処理
+    const diff1 = scores[1] - lastDisplayedScores[1];
+    const scoreElement1 = document.getElementById("p2-score");
+
+    if (diff1 !== 0) {
+        if (Math.abs(diff1) === 1) {
+            // 1点のときは即更新
+            scoreElement1.innerText = scores[1];
+        } else {
+            // 2点以上のときはアニメーション
+            animateValue("p2-score", lastDisplayedScores[1], scores[1], 400);
+        }
+        lastDisplayedScores[1] = scores[1];
+    }
+
     document.getElementById('p1-score').innerText = scores[0]; 
     document.getElementById('p2-score').innerText = scores[1];
     document.getElementById('p1-frames').innerText = frames[0]; 
@@ -58,6 +89,37 @@ function updateDisplay() {
         b.className = `ball-sphere ball-small color-${val}`; 
         ballsDiv.appendChild(b); 
     });
+}
+
+ // 数字をアニメーションさせながら更新する関数
+
+function animateValue(elementId, start, end, duration) {
+    const obj = document.getElementById(elementId);
+    if (!obj) return;
+    
+    const range = end - start;
+    if (range === 0) {
+        obj.innerText = end;
+        return;
+    }
+
+    let startTime = null;
+
+    function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        
+        // イージング（少し加速して止まる）をかけると綺麗です
+        const currentScore = Math.floor(progress * range + start);
+        obj.innerText = currentScore;
+        
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        } else {
+            obj.innerText = end; // 最後に確実に目標値にする
+        }
+    }
+    window.requestAnimationFrame(step);
 }
 
 /**

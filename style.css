@@ -79,6 +79,18 @@ body, html {
     align-items: center; 
     justify-content: center; 
 }
+/* スコア表示部分 */
+#p1-score, #p2-score {
+    
+    font-variant-numeric: tabular-nums; /* 数字の横幅を固定する設定（モダンブラウザ用） */
+    transition: transform 0.1s ease;
+}
+
+/* 加算された瞬間に少しだけ数字を大きくする「鼓動」エフェクト */
+.score-up {
+    transform: scale(1.1);
+    color: #f1c40f; /* 加算中だけ一瞬ゴールドにする */
+}
 .name { 
     font-size: 7vh; 
     font-weight: 900; 
@@ -396,7 +408,7 @@ body, html {
 /* 広告エリア全体のコンテナ */
 .ad-container {
     position: fixed;
-    bottom: 10px;      /* 画面の一番下から少し浮かせる */
+    bottom: 5px;      /* 画面の一番下から少し浮かせる */
     left: 50%;
     transform: translateX(-50%); /* 中央寄せ */
     width: 60%;        /* 幅90% */
@@ -418,10 +430,11 @@ body, html {
     background: #000;       /* 画像が読み込まれるまでの背景色 */
 }
 
-/* 広告が表示される分、メインエリアの下に余白を作る */
+/* 広告が表示される分、メインエリアの下に余白を作る 
 .main-container {
     padding-bottom: 100px; 
 }
+    */
 
 /* ボタンカラーバリエーション */
 .btn-green { background: var(--accent); color: black; }
