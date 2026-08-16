@@ -117,7 +117,7 @@ body, html {
     left: 2vw; 
 } 
 .score { 
-    font-size: 30vh; 
+    font-size: 40vh; 
     font-weight: 900; 
     line-height: 0.8; 
     font-variant-numeric: tabular-nums; 
@@ -157,10 +157,10 @@ body, html {
     border-radius:0.5vh; 
 }
 #timer {
-    font-size: 2.2vh; 
+    font-size: 5.0vh; 
     font-family: monospace; 
     color: #666; 
-    margin-top: 1vh; 
+    margin-top: 3vh; 
 }
 #vs-text { 
     font-size: 6vh; 
@@ -176,6 +176,7 @@ body, html {
     border-radius:1.5vh; 
     text-align:center; 
     min-width:11vw; 
+    margin-top: 3vh; /* 必要に応じて数値（2vh〜5vh等）を調整 */
 }
 .diff-label { 
     font-size:1.4vh; 
@@ -185,7 +186,7 @@ body, html {
 
 
 #score-diff { 
-    font-size: 7.5vh; 
+    font-size: 10.0vh; 
     font-weight: bold; 
     color: #dcdcdc; 
     line-height: 1; 
@@ -259,35 +260,42 @@ body, html {
 .settings-gear-btn:hover .gear-icon { transform: rotate(45deg); }
 
 /* ファウルボタン専用スタイル */
-.foul-ball4 {
+.foul-ball4{
     background: radial-gradient(circle at 30% 30%, #6b6b6b, #111) !important; /* 渋いメタル/マットな黒 */
     border: 2.5px solid #e74c3c; /* 警告を意味する赤の細いフチ */
     box-shadow: 0 0 20px rgba(245, 28, 3, 0.762); /* ほんのり赤く光らせる */
     color: #ffffff !important; /* 文字も赤系に */
-    font-size: 2.5vh !important; /* 通常のボールより少し小さく */
+    
 }
-.foul-ball5 {
+.foul-ball5{
     background: radial-gradient(circle at 30% 30%, #6b6b6b, #111) !important; /* 渋いメタル/マットな黒 */
     border: 2.5px solid #3c3fe7; /* 警告を意味する赤の細いフチ */
     box-shadow: 0 0 20px rgba(3, 19, 245, 0.762); /* ほんのり赤く光らせる */
     color: #ffffff !important; /* 文字も赤系に */
-    font-size: 2.5vh !important; /* 通常のボールより少し小さく */
+    
 }
-.foul-ball6 {
+.foul-ball6{
     background: radial-gradient(circle at 30% 30%, #6b6b6b, #111) !important; /* 渋いメタル/マットな黒 */
     border: 2.5px solid #e73ca3; /* 警告を意味する赤の細いフチ */
     box-shadow: 0 0 20px rgba(245, 3, 156, 0.762); /* ほんのり赤く光らせる */
     color: #ffffff !important; /* 文字も赤系に */
-    font-size: 2.5vh !important; /* 通常のボールより少し小さく */
+    
    
     
 }
-.foul-ball7 {
+.foul-ball7{
     background: radial-gradient(circle at 30% 30%, #6b6b6b, #111) !important; /* 渋いメタル/マットな黒 */
     border: 2.5px solid #636363; /* 警告を意味する赤の細いフチ */
     box-shadow: 0 0 20px rgba(183, 183, 183, 0.659); /* ほんのり赤く光らせる */
     color: #ffffff !important; /* 文字も赤系に */
-    font-size: 2.5vh !important; /* 通常のボールより少し小さく */
+    
+}
+/* まとめで指定する場合（おすすめ） */
+.foul-ball4 span,
+.foul-ball5 span,
+.foul-ball6 span,
+.foul-ball7 span {
+    font-size: 1.8vh !important;
 }
 
 
@@ -378,6 +386,7 @@ body, html {
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
     gap: 0.8vh; 
+    margin-top: 2vh; /* 必要に応じて数値（2vh〜5vh等）を調整 */
 }
 .btn-system { 
     font-size:1.8vh; 
@@ -461,25 +470,34 @@ body, html {
 
 /* ブレイク（履歴）表示 */
 #break-container { 
-    height: auto; 
-    min-height: 5vh; 
-    max-height: 8vh;
+    height: 11vh; 
     text-align: center; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 #break-area { 
-    font-size: 3.5vh; /* 少し小さく調整 */
+    font-size: 4.5vh; 
     color: var(--gold); 
     font-weight: bold; 
-    line-height: 1;
+    height: 5vh; 
+    min-height: 5vh; /* 空の時でも高さを保持 */
+    line-height: 5vh;
 }
 #break-balls { 
     display: flex; 
     justify-content: center; 
+    align-items: center; /* アイコンを上下中央に配置 */
     gap: 2px; 
+    height: 4.5vh; 
+    min-height: 4.5vh; /* ボールが0個でも4.5vhの縦スペースを固定確保 */
     flex-wrap: wrap; 
+}
+.change-player .modal-btn {
+    font-size: 2.5vh; /* 文字サイズを大きく設定（デフォルト: 1.8vh） */
+    padding: 5vh 5vh; /* 上下・左右の内側余白を拡大（デフォルト: 1.2vh） */
+    min-height: 8vh;  /* 必要に応じて高さの最小値を確保 */
+    margin-top: 3vh; /* 必要に応じて数値（2vh〜5vh等）を調整 */
 }
 
 /* お祝い演出 */

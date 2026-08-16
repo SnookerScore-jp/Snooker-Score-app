@@ -1,8 +1,9 @@
-const CACHE_NAME = 'snooker-v5'; // ここを v2 に上げる
+const CACHE_NAME = 'snooker-v6'; // ここを v2 に上げる
 const ASSETS = [
   'index.html',
   'style.css',
   'script.js',
+  './Player_Name_List.csv', // ★ここに追加しておくことでオフラインでも読み込めます
   'confetti.js',
   'manifest.json',
   'icon.png',

@@ -427,3 +427,27 @@ function handleFirstClick() {
 
 // 初期表示実行
 updateDisplay();
+
+/* 起動時に自動で Player_Name_List.csv を読み込む関数
+ */
+async function loadDefaultCSV() {
+    try {
+        // 同じフォルダ内にある Player_Name_List.csv を取得
+        const response = await fetch('./Player_Name_List.csv');
+        if (!response.ok) return;
+        
+        const text = await response.text();
+        const rows = text.split(/\r?\n/).filter(l => l.trim());
+        
+        // ヘッダー行を除外して名前リスト（2列目）を配列に格納
+        cachedNames = rows.slice(1).map(line => line.split(',')[1]?.trim() || "Unknown");
+        
+        // プレイヤーリストのモーダル内描画を更新
+        renderPlayerList();
+    } catch (err) {
+        console.log("デフォルトCSVの読み込みスキップ:", err);
+    }
+}
+
+// アプリ起動（初期化）時に自動実行
+loadDefaultCSV();
